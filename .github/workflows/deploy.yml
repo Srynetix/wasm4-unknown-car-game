@@ -1,0 +1,45 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    env:
+      CARGO_TERM_COLOR: always
+
+    steps:
+      - uses: actions/checkout@v3
+      - run: rustup toolchain install stable --profile minimal --target wasm32-unknown-unknown
+      - uses: extractions/setup-just@v1
+      - uses: Swatinem/rust-cache@v2
+
+      # Setup everything for release builds
+      - run: |
+          npm install -g wasm4
+          mkdir ./bin
+          wget https://github.com/WebAssembly/binaryen/releases/download/version_114/binaryen-version_114-x86_64-linux.tar.gz
+          wget https://github.com/WebAssembly/wabt/releases/download/1.0.33/wabt-1.0.33-ubuntu.tar.gz
+          tar -xf binaryen-version_114-x86_64-linux.tar.gz
+          tar -xf wabt-1.0.33-ubuntu.tar.gz
+          mv binaryen-version_114/bin/* ./bin
+          mv wabt-1.0.33/bin/* ./bin
+
+      # Build
+      - run: |
+          PATH="$(pwd)/bin:$PATH" just export-release-web
+          mkdir exports && mv ./export-release.html exports/index.html
+
+      - name: Deploy to GitHub Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages
+          folder: exports
