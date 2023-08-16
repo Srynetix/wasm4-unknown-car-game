@@ -37,11 +37,12 @@ checksum = "6999dc1837253364c2ebb0704ba97994bd874e8f195d665c50b7548f6ea92764"
 [[package]]
 name = "wasm4-stubs"
 version = "0.1.0"
-source = "git+https://github.com/Srynetix/wasm4-sx.git#7dd7ea23cad357bfe35f45cedb48af1f61f21de7"
+source = "git+https://github.com/Srynetix/wasm4-sx.git?rev=7923240a6c8e38cd7f34f3ec74e46bd0874da503#7923240a6c8e38cd7f34f3ec74e46bd0874da503"
 
 [[package]]
 name = "wasm4-sx"
 version = "0.1.0"
+source = "git+https://github.com/Srynetix/wasm4-sx.git?rev=7923240a6c8e38cd7f34f3ec74e46bd0874da503#7923240a6c8e38cd7f34f3ec74e46bd0874da503"
 dependencies = [
  "arrayvec",
  "byteorder",
@@ -53,3 +54,4 @@ dependencies = [
 [[package]]
 name = "wasm4-sys"
 version = "0.1.0"
+source = "git+https://github.com/Srynetix/wasm4-sx.git?rev=7923240a6c8e38cd7f34f3ec74e46bd0874da503#7923240a6c8e38cd7f34f3ec74e46bd0874da503"
